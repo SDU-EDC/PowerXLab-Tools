@@ -1,0 +1,1 @@
+The default path of the files of geographical data.
