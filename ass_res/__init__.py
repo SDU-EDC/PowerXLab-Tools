@@ -8,14 +8,16 @@ Created on Sun Jun 11 15:42:16 2017
 	and solar energy sources.
 # @ Author: Yongji Cao, Hengxu Zhang
 # @ Requirements：
-# 	Python 2.7(or higher)
-# 	numpy
-# 	matplotlib
-# 	basemap
-# 	scipy
-# 	sklearn
+# 	Python 2.7 (or higher)
+# 	numpy (Python package)
+# 	matplotlib (Python package)
+# 	basemap (Python package)
+# 	scipy (Python package)
+# 	sklearn (Python package)
+# 	Ten-year wind speed and solar irradiation of NASA database (Data)
+# 	Geographical data of GADM database in shapefile file format (Data)
 # @ Version: 0.1.2
-# @ Revision date: Jun/16/2017
+# @ Revision date: Jun/17/2017
 # @ Copyright (c) 2016-2017 School of Electrical Engineering, Shandong University, China
 ########################################################################################
 """
