@@ -8,7 +8,7 @@ Created on Sat Jun 10 11:12:21 2017
 # 	Assess the spatial synergy effects.
 # @ Author: Yongji Cao, Hengxu Zhang
 # @ Version: 0.1.2
-# @ Revision date: Jun/16/2017
+# @ Revision date: Jun/17/2017
 # @ Copyright (c) 2016-2017 School of Electrical Engineering, Shandong University, China
 ########################################################################################
 """
@@ -113,7 +113,7 @@ def cpca_and_cluster(ioutline, inames, ilat_lable, ilon_lable, isite_lon, isite_
 	'''Assess the spatial synergy effects by the PCA and k-menas clustering.
 	Args:
 		ioutline: the outlines of the background.
-		inames: the filename of geographical data, information name, and the region name.
+		inames: the filename of geographical data, attribute/column name, and region name.
 		ilat_lable: the latitude label.
 		ilon_lable: the longitude label.
 		isite_lon: the longitude of the annotated site.

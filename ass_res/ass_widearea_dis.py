@@ -9,7 +9,7 @@ Created on Sat Jun 10 09:31:51 2017
 # 	and the spatial effects of one site.
 # @ Author: Yongji Cao, Hengxu Zhang
 # @ Version: 0.1.2
-# @ Revision date: Jun/16/2017
+# @ Revision date: Jun/17/2017
 # @ Copyright (c) 2016-2017 School of Electrical Engineering, Shandong University, China
 ########################################################################################
 """
@@ -31,7 +31,7 @@ def ass_wide_ws(isource_data, ioutline, inames, ilat_lable, ilon_lable, isite_lo
 	Args:
 		isource_data: the source data.
 		ioutline: the outlines of the background.
-		inames: the filename of geographical data, information name, and the region name.
+		inames: the filename of geographical data, attribute/column name, and region name.
 		ilat_lable: the latitude label.
 		ilon_lable: the longitude label.
 		isite_lon: the longitude of the annotated site.
@@ -58,7 +58,7 @@ def ass_wide_lsy(iwind_data, isolar_data, ioutline, inames, ilat_lable, ilon_lab
 		iwind_data: the source wind data.
 		isolar_data: the source solar data.
 		ioutline: the outlines of the background.
-		inames: the filename of geographical data, information name, and the region name.
+		inames: the filename of geographical data, attribute/column name, the region name.
 		ilat_lable: the latitude label.
 		ilon_lable: the longitude label.
 		isite_lon: the longitude of the annotated site.
@@ -85,7 +85,7 @@ def ass_site_wsy(iwind_data, isolar_data, ioutline, inames, ilat_lable, ilon_lab
 		iwind_data: the source wind data.
 		isolar_data: the source solar data.
 		ioutline: the outlines of the background.
-		inames: the filename of geographical data, information name, and the region name.
+		inames: the filename of geographical data, attribute/column name, and region name.
 		ilat_lable: the latitude label.
 		ilon_lable: the longitude label.
 		isite_lon: the longitude of the annotated site.

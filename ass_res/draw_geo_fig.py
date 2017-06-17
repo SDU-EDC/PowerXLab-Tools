@@ -8,7 +8,7 @@ Created on Fri Jun 09 20:40:31 2017
 # 	Basic graphs, contour graphs, and clustering graphs.
 # @ Author: Yongji Cao, Hengxu Zhang
 # @ Version: 0.1.2
-# @ Revision date: Jun/16/2017
+# @ Revision date: Jun/17/2017
 # @ Copyright (c) 2016-2017 School of Electrical Engineering, Shandong University, China
 ########################################################################################
 """
@@ -48,7 +48,7 @@ def cdraw_geo_ax(iax, ioutline, inames, ilat_lable, ilon_lable):
 	Args:
 		iax: the handle of given ax.
 		ioutline: the outlines of the background.
-		inames: the filename of geographical data, information name, and the region name.
+		inames: the filename of geographical data, attribute/column name, and region name.
 		ilat_lable: the latitude label.
 		ilon_lable: the longitude label.
 	Returns:
@@ -85,7 +85,7 @@ def cdraw_basic_fig(ioutline, inames, ilat_lable, ilon_lable, isite_lon, isite_l
 	'''Draw the basic geographical graphs.
 	Args:
 		ioutline: the outlines of the background.
-		inames: the filename of geographical data, information name, and the region name.
+		inames: the filename of geographical data, attribute/column name, and region name.
 		ilat_lable: the latitude label.
 		ilon_lable: the longitude label.
 		isite_lon: the longitude of the annotated site.
@@ -111,7 +111,7 @@ def cdraw_contour_fig(idata, ioutline, inames, ilat_lable, ilon_lable, isite_lon
 	Args:
 		idata: the source data
 		ioutline: the outlines of the background.
-		inames: the filename of geographical data, information name, and the region name.
+		inames: the filename of geographical data, attribute/column name, and region name.
 		ilat_lable: the latitude label.
 		ilon_lable: the longitude label.
 		isite_lon: the longitude of the annotated site.
@@ -144,7 +144,7 @@ def cdraw_cluster_fig(idata_index, icluster_num, ioutline, inames, ilat_lable, i
 		idata_index: the clustering indices of source data.
 		icluster_num: the number of clusters.
 		ioutline: the outlines of the background.
-		inames: the filename of geographical data, information name, and the region name.
+		inames: the filename of geographical data, attribute/column name, and region name.
 		ilat_lable: the latitude label.
 		ilon_lable: the longitude label.
 		isite_lon: the longitude of the annotated site.
