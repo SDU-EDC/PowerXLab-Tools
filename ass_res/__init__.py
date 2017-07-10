@@ -13,6 +13,7 @@ Created on Sun Jun 11 15:42:16 2017
 # 	matplotlib (Python package)
 # 	basemap (Python package)
 # 	scipy (Python package)
+# 	pyhdf (Python package)
 # 	sklearn (Python package)
 # 	Ten-year wind speed and solar irradiation of NASA database (Data)
 # 	Geographical data of GADM database in shapefile file format (Data)
