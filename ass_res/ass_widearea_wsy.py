@@ -147,7 +147,7 @@ def cpca_and_cluster(ioutline, inames, ilat_lable, ilon_lable, isite_lon, isite_
 		data_index.append([x for x in range(0, isynergy_coef.shape[0]) if sycoef_km_label[x] == each_cluster])
 	silhouette_avg = silhouette_score(sycoef_pca_nor, sycoef_km_label)
 	silhouette_sample = silhouette_samples(sycoef_pca_nor, sycoef_km_label)
-	centroid_site = csearch_centroid (data_index, sycoef_pca_nor, icomponent_num)
+	centroid_site = csearch_centroid (data_index, sycoef_pca_nor, icluster_num)
 	mdgf.cdraw_cluster_fig(data_index, icluster_num, ioutline, inames, ilat_lable, ilon_lable, isite_lon, isite_lat)
 	return pca_evr, centroid_site, data_index, sycoef_pca_nor, silhouette_avg, silhouette_sample
 
@@ -186,10 +186,10 @@ def canal_cluster(iwind_data, isolar_data, icentroid_site0, icentroid_site1, imo
 	for each0 in range(0, icluster_num, 1):
 		for each1 in range(0, icluster_num, 1):
 			synergy_coef[each0, each1] = \
-			stats.pearsonr(fc_0[icentroid_site0[each0]][0, :], fc_1[icentroid_site1[each1]][0, :])[0]
+			stats.pearsonr(fc_0[icentroid_site0[0, each0]][0, :], fc_1[icentroid_site1[0, each1]][0, :])[0]
 	synergy_coef = (1 - synergy_coef) /2.0
-	return icentroid_site1[np.argmax(synergy_coef, axis=0)], np.max(synergy_coef, axis=0), \
-	icentroid_site1[np.argmin(synergy_coef, axis=0)], np.min(synergy_coef, axis=0)
+	return icentroid_site1[0, np.argmax(synergy_coef, axis=0)], np.max(synergy_coef, axis=0), \
+	icentroid_site1[0, np.argmin(synergy_coef, axis=0)], np.min(synergy_coef, axis=0)
 
 
 if __name__ == '__main__':
