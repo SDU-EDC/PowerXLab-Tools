@@ -16,3 +16,5 @@ Power system analysis and control tools developed by School of Electrical Engine
 		Geographical data of GADM database in shapefile file format (Data)
 	- Usage
 ## Reference
+## License
+[GNU General Public License v3.0](LICENSE)
