@@ -7,8 +7,8 @@ Created on Thu Jun 08 21:53:47 2017
 # @ Function: The class of NASA solar irradiation. 
 # 	Importing, preprocessing, and basic operation of solar data.
 # @ Author: Yongji Cao, Hengxu Zhang
-# @ Version: 0.1.2
-# @ Revision date: Jun/16/2017
+# @ Version: 1.1.2
+# @ Revision date: Nov./05/2017
 # @ Copyright (c) 2016-2017 School of Electrical Engineering, Shandong University, China
 ########################################################################################
 """
@@ -20,7 +20,7 @@ from pyhdf.SD import SD
 
 class SolarData(object):
 	'''NASA solar irradiation data class'''
-	version = '0.1.0'
+	version = '1.1.2'
 	month_name = ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
 		'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')
 	leap_year = {'Jan': (31, 101, 131, True), 'Feb': (29, 201, 229, True), 'Mar': (31, 301, 331, True), 
@@ -31,9 +31,13 @@ class SolarData(object):
 	'Apr': (30, 401, 430, True), 'May': (31, 501, 531, True), 'Jun': (30, 601, 630, True), 'Jul': (31, 701, 731, True), 
 	'Aug': (31, 801, 831, True), 'Sep': (30, 901, 930, True), 'Oct': (31, 1001, 1031, False), 
 	'Nov': (30, 1101, 1130, False), 'Dec': (31, 1201, 1231, False)}
+	#fnamesa and fnamsb are the middle names of sloar irrdiation.
 	fnamesa = '/MERRA301.prod.assim.tavg1_2d_rad_Nx.'
 	fnamesb = '/MERRA300.prod.assim.tavg1_2d_rad_Nx.'
 	fnamee = '.SUB.hdf'
+	#fnameta and fnamtb are the middle names of ambient temperature.
+	fnameta = '/MERRA301.prod.assim.tavg1_2d_slv_Nx.'
+	fnametb = '/MERRA300.prod.assim.tavg1_2d_slv_Nx.'
 	spl_month2010 = ('Jun', 'Jul', 'Aug')
 
 	def __init__(self, ifile_path, isite_index, istart_year, iend_year):
@@ -52,9 +56,10 @@ class SolarData(object):
 		self.end_year = iend_year
 		self.dict_solar = {}
 		self.dict_solar_cf = {}
+		self.dict_temperature = {}
 
 	def cimport_data(self, idata_name=('SWGNT',)):
-		'''Import ten-year data. 
+		'''Import ten-year dsolar irradiation ata. 
 		Args:
 			idata_name: the data name.
 		Returns: 
@@ -107,8 +112,65 @@ class SolarData(object):
 							np.vstack((self.dict_solar[each_siteth][each_year][each_month], tmpirrad_site))
 		return self.dict_solar
 
-	def csolar2cf(self, irated_powr=255.0, iarea_m2=1.6368, ieffi_ratio=0.1248):
+	def cimport_datat(self, idata_name=('TS',)):
+		'''Import ten-year ambient temperature data. 
+		Args:
+			idata_name: the data name.
+		Returns: 
+			self.dict_solar: imported data.
+		'''
+		year_index = range(self.start_year, self.end_year + 1)
+		site_num = len(self.site_indext)
+		zero = str(0)
+		for each_siteth in range(1, site_num + 1):
+			self.dict_temperature[each_siteth] = {}
+			for each_year in year_index:
+				self.dict_temperature[each_siteth][each_year] = {}
+				for each_month in SolarData.month_name:
+					self.dict_temperature[each_siteth][each_year][each_month] = np.empty((0,24), np.float32)
+		for each_year in year_index:
+			if ((each_year % 400 == 0) or ((each_year % 4 == 0) and (each_year % 100 != 0))):
+				year_feature = SolarData.leap_year
+			else:
+				year_feature = SolarData.nonleap_year
+			for each_month in SolarData.month_name:
+				if ((each_year == 2010) and (each_month in SolarData.spl_month2010)):
+					fnames = self.file_patht + SolarData.fnameta
+				else:
+					fnames = self.file_patht + SolarData.fnametb
+				day_s = year_feature[each_month][1]
+				day_e = year_feature[each_month][2]
+				if year_feature[each_month][3]:
+					for each_day in range(day_s, day_e + 1):
+						fname = fnames + str(each_year) + zero + str(each_day) + SolarData.fnamee
+						print fname
+						fid = SD(fname)
+						tmpirrad = fid.select(idata_name[0])[:, :, :]
+						fid.end()
+						for each_siteth in range(1, site_num + 1):
+							tmpirrad_site = tmpirrad[:, self.site_indext[each_siteth - 1][0], \
+							self.site_indext[each_siteth - 1][1]].reshape(1, -1)
+							self.dict_temperature[each_siteth][each_year][each_month] = \
+							np.vstack((self.dict_temperature[each_siteth][each_year][each_month], tmpirrad_site))
+						# print(tmpirrad_site)
+				else:
+					for each_day in range(day_s, day_e + 1):
+						fname = fnames + str(each_year) + str(each_day) + SolarData.fnamee
+						print fname
+						fid = SD(fname)
+						tmpirrad = fid.select(idata_name[0])[:, :, :]
+						fid.end()
+						for each_siteth in range(1, site_num + 1):
+							tmpirrad_site = tmpirrad[:, self.site_indext[each_siteth - 1][0], \
+							self.site_indext[each_siteth - 1][1]].reshape(1, -1)
+							self.dict_temperature[each_siteth][each_year][each_month] = \
+							np.vstack((self.dict_temperature[each_siteth][each_year][each_month], tmpirrad_site))
+						# print(tmpirrad_site)
+		return self.dict_temperature
+
+	def csolar2cf_model1(self, irated_powr=255.0, iarea_m2=1.6368, ieffi_ratio=0.1248):
 		'''Converter solar irradiation to capacity factors.
+			PV Model1: Ff = (idata * iarea_m2 * ieffi_ratio) / ieffi_ratio
 		Args:
 			idata: the source solar irradiation.
 			irated_powr: the rated power.
@@ -126,6 +188,36 @@ class SolarData(object):
 				for each_month in SolarData.month_name:
 					self.dict_solar_cf[each_siteth][each_year][each_month] = \
 					self.dict_solar[each_siteth][each_year][each_month] * ieffi_ratio * iarea_m2 / irated_powr
+		return self.dict_solar_cf
+
+	def csolar2cf_model2(self, iHSTC=1000.0, iC1=0.93, iC2=-0.005, iTSTC=25.0, iTfTETC=47.0, iTaTETC=20.0, iHTETC=800.0):
+		'''Converter solar irradiation to capacity factors.
+		PV Model2: Ff = (idataf / iHSTC) * iC1 * (1 + iC2(Tf - iTSTC))
+							Tf = idatat + idataf * (iTfTETC - iTaTETC) / iHTETC
+		Args:
+			idata: the source solar irradiation and ambient temperature.
+			iHSTC: the solar irradiation at standard test condition.
+			iC1: the derating coefficient.
+			iC2: the power temperature coefficient.
+			iTSTC: is the temperature at standard test condition.
+			iTfTETC: the solar irradiation at temperature estimation test condition.
+			iTaTETC: the ambient temperature at temperature estimation test condition.
+		Returns:
+			capacity factors
+		'''
+		year_index = range(self.start_year, self.end_year + 1)
+		site_num = len(self.site_index)
+		for each_siteth in range(1, site_num + 1):
+			self.dict_solar_cf[each_siteth] = {}
+			for each_year in year_index:
+				self.dict_solar_cf[each_siteth][each_year] = {}
+				for each_month in SolarData.month_name:
+#					print each_month
+					self.dict_solar_cf[each_siteth][each_year][each_month] = \
+					self.dict_solar[each_siteth][each_year][each_month] / iHSTC * iC1 * \
+					(1 + iC2 * (self.dict_temperature[each_siteth][each_year][each_month] 
+					- 273.15 - iTSTC + self.dict_solar[each_siteth][each_year][each_month] 
+					* (iTfTETC - iTaTETC) / iHTETC))
 		return self.dict_solar_cf
 
 	def c2style_1month(self, imode=True):
@@ -252,7 +344,9 @@ if __name__ == '__main__':
 
 	solar_data = SolarData(file_name, irrad_site_index, start_year, end_year)
 	solar_irrad_data = solar_data.cimport_data()
-	solar_capacity_factor = solar_data.csolar2cf()
+	solar_capacity_factor = solar_data.csolar2cf_model1()
+	# solar_temperature_data = solar_data.cimport_datat()
+	# solar_capacity_factor = solar_data.csolar2cf_model2()
 	solar_cf_1monthstl = solar_data.c2style_1month()
 	solar_cf_1yearstl = solar_data.c2style_1year()
 	solar_cf_10yearstl = solar_data.c2style_10year()

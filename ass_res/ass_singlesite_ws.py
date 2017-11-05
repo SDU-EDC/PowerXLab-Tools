@@ -328,7 +328,9 @@ if __name__ == '__main__':
 	wind_capacity_factor = wind_data.cwind2cf()
 	solar_data = msolar.SolarData(sfile_name, site_index, start_year, end_year)
 	solar_irrad_data = solar_data.cimport_data()
-	solar_capacity_factor = solar_data.csolar2cf()
+	solar_capacity_factor = solar_data.csolar2cf_model1()
+	# solar_temperature_data = solar_data.cimport_datat()
+	# solar_capacity_factor = solar_data.csolar2cf_model2()
 
 	(fc_mean_yearly, fc_std_yearly, fc_varcoef_yearly) = cass_varws_annual(wind_data, [1,2,3], True)
 	cass_varws_monthly(wind_data, [1,2,3], 2010, True)

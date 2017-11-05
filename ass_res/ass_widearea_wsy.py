@@ -234,7 +234,9 @@ if __name__ == '__main__':
 	wind_capacity_factor = wind_data.cwind2cf()
 	solar_data = msolar.SolarData(sfile_name, site_index, start_year, end_year)
 	solar_irrad_data = solar_data.cimport_data()
-	solar_capacity_factor = solar_data.csolar2cf()
+	solar_capacity_factor = solar_data.csolar2cf_model1()
+	# solar_temperature_data = solar_data.cimport_datat()
+	# solar_capacity_factor = solar_data.csolar2cf_model2()
 
 	synergy_coef_ww = ccalc_synergy_coef(wind_data, solar_data, 0, 0)
 	assess_result_ww = cpca_and_cluster(outline, names, lat_lable, lon_lable, site_lon, site_lat, synergy_coef_ww, 3, 6)
