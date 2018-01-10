@@ -1,7 +1,7 @@
 # PowerXLab-Tools
-Power system analysis, planning and control tools developed by School of Electrical Engineering, Shandong University, China.
+An integrated power system application tool developed by School of Electrical Engineering, Shandong University, China.
 ## Introduction
-### Ass_RES V1.0
+### RRES_Ass V1.0
 	A Python package developed for assessment and visualization of the spatiotemporal characteristics of 
 	regional wind and solar energy sources to support preliminary regional planning.
 	- Requirements
@@ -15,6 +15,10 @@ Power system analysis, planning and control tools developed by School of Electri
 		Ten-year wind speed, solar irradiation and ambient temperature of NASA database (Data)
 		Geographical data of GADM database in shapefile file format (Data)
 	- Usage
+### RRES_Plan V1.0
+
+### RRES_Con V1.0
+
 ## Reference
 ## License
 [GNU General Public License v3.0](LICENSE)
