@@ -17,7 +17,7 @@ An integrated power system application tool developed by School of Electrical En
 	- Usage
 ### Plan_RRES V1.0
 
-### Control_RRES V1.0
+### Ctrol_RRES V1.0
 
 ## Reference
 ## License
