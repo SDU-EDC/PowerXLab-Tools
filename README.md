@@ -3,7 +3,7 @@ Power system analysis, planning and control tools developed by School of Electri
 ## Introduction
 ### Ass_RES V1.0
 	A Python package developed for assessment and visualization of the spatiotemporal characteristics of 
-	regional wind and solar energy sources.
+	regional wind and solar energy sources to support preliminary regional planning.
 	- Requirements
 		Python 2.7 (or higher)
 		numpy (Python package)
