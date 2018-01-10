@@ -1,9 +1,9 @@
 # PowerXLab-Tools
 An integrated power system application tool developed by School of Electrical Engineering, Shandong University, China.
 ## Introduction
-### Ass_RRES V1.0
+### Ass_RRESs V1.0
 	A Python package developed for assessment and visualization of the spatiotemporal characteristics of 
-	regional wind and solar energy sources to support preliminary regional planning.
+	regional renewable energy sources (wind and solar energy) to support preliminary regional planning.
 	- Requirements
 		Python 2.7 (or higher)
 		numpy (Python package)
@@ -15,10 +15,15 @@ An integrated power system application tool developed by School of Electrical En
 		Ten-year wind speed, solar irradiation and ambient temperature of NASA database (Data)
 		Geographical data of GADM database in shapefile file format (Data)
 	- Usage
-### Plan_RRES V1.0
+### Plan_RRESs V1.0
+	A software package developed for optimal planning of regional wind-solar synergetic energy systems.
+	- Requirements
+	- Usage
 
-### Ctrol_RRES V1.0
-
+### Ctrol_RRESs V1.0
+	A software package developed for frequency control of renewable energy systems.
+	- Requirements
+	- Usage
 ## Reference
 ## License
 [GNU General Public License v3.0](LICENSE)
