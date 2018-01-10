@@ -1,5 +1,5 @@
 # PowerXLab-Tools
-Power system analysis and control tools developed by School of Electrical Engineering, Shandong University, China.
+Power system analysis， planning and control tools developed by School of Electrical Engineering, Shandong University, China.
 ## Introduction
 ### Ass_RES V1.0
 	A Python package developed for assessment and visualization of the spatiotemporal characteristics of 
