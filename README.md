@@ -23,7 +23,7 @@ An integrated power system application tool developed by School of Electrical En
 	- Requirements
 	- Usage
 
-### Ctrol_RRESs V1.0
+### RCCT V1.0
 	Regional Coordinated Control Toolbox for renewable energy systems
 	A software package developed for frequency control of renewable energy systems.
 	- Requirements
