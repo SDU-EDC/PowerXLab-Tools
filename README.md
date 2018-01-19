@@ -22,7 +22,6 @@ An integrated power system application tool developed by School of Electrical En
 	A software package developed for optimal planning of regional wind-solar synergetic energy systems.
 	- Requirements
 	- Usage
-
 ### RCCT V1.0
 	Regional Coordinated Control Toolbox for renewable energy systems
 	A software package developed for frequency control of renewable energy systems.
