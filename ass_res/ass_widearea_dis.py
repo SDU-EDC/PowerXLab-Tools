@@ -8,9 +8,9 @@ Created on Sat Jun 10 09:31:51 2017
 # 	Assess the spatial distribution of resources, local synergy effects, 
 # 	and the spatial effects of one site.
 # @ Author: Yongji Cao, Hengxu Zhang
-# @ Version: 0.1.2
-# @ Revision date: Jun/17/2017
-# @ Copyright (c) 2016-2017 School of Electrical Engineering, Shandong University, China
+# @ Version: 1.0
+# @ Revision date: Jun/19/2018
+# @ Copyright (c) 2016-2018 School of Electrical Engineering, Shandong University, China
 ########################################################################################
 """
 
@@ -51,7 +51,7 @@ def ass_wide_ws(isource_data, ioutline, inames, ilat_lable, ilon_lable, isite_lo
 	np.min(attri, axis=1), np.argmin(attri, axis=1) + 1
 
 
-def ass_wide_lsy(iwind_data, isolar_data, ioutline, inames, ilat_lable, ilon_lable, isite_lon, isite_lat, imode=0):
+def ass_wide_lsy(iwind_data, isolar_data, ioutline, inames, ilat_lable, ilon_lable, isite_lon, isite_lat, imode=0, ikw=0.60, ikf=0.98, ikc=-0.5, igama=0.1):
 	'''Assess the spatial distribution of local synergy effects.
 		Output statistical indices and graphs.
 	Args:
@@ -63,7 +63,27 @@ def ass_wide_lsy(iwind_data, isolar_data, ioutline, inames, ilat_lable, ilon_lab
 		ilon_lable: the longitude label.
 		isite_lon: the longitude of the annotated site.
 		isite_lat: the latitude of the annotated sites.
-		imode: 0, 1, 2, 3. means in year scale variable coefficient in hour scale, matching coefficient, local synergy coefiicient
+		imode: 0~15
+				0 - optimal ratio of wind and solar.
+				1 - means of optimal wind and solar configuration in year scale.
+				2 - means of optimal wind and solar configuration in hour scale.
+				3 - std of optimal wind and solar configuration in hour scale.
+				4 - variation coefficient of optimal wind and solar configuration in hour scale.
+				5 - half power probability.
+				6 - the ramp rate of optimal wind and solar configuration.
+				7 - mean of ramp rate.
+				8 - std of ramp rate.
+				9 - max of ramp rate.
+				10 - min of ramp rate.
+				11 - upper value of 95% confidence interval ramp rate.
+				12 - lower value of 95% confidence interval ramp rate.
+				13 - the improving coefficient.
+				14 - the local synergy coefficient.
+				15 - the comprehensive profit coefficient.
+		ikw: the profit coefficient of electricity selling of wind energy.
+		ikf: the profit coefficient of electricity selling of solar energy.
+		ikc: the negative cost coefficient of ramp reserve.
+		igama: the weight factor.
 	Returns:
 		the graphs.
 		attri: the selected attribute.
@@ -72,7 +92,7 @@ def ass_wide_lsy(iwind_data, isolar_data, ioutline, inames, ilat_lable, ilon_lab
 		the min value of the selected attribute.
 		the serial number of site of the min value.
 	'''
-	attri = maslsy.cass_attr_constr(iwind_data, isolar_data, imode)
+	attri = maslsy.cass_attr_constr(iwind_data, isolar_data, imode, ikw, ikf, ikc, igama)
 	mdgf.cdraw_contour_fig(attri, ioutline, inames, ilat_lable, ilon_lable, isite_lon, isite_lat)
 	return attri, np.max(attri, axis=1), np.argmax(attri, axis=1) + 1, \
 	np.min(attri, axis=1), np.argmin(attri, axis=1) + 1

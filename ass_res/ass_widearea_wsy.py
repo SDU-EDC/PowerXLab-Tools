@@ -7,9 +7,9 @@ Created on Sat Jun 10 11:12:21 2017
 # @ Function: Perform wide-area assessment.
 # 	Assess the spatial synergy effects.
 # @ Author: Yongji Cao, Hengxu Zhang
-# @ Version: 0.1.2
-# @ Revision date: Jun/17/2017
-# @ Copyright (c) 2016-2017 School of Electrical Engineering, Shandong University, China
+# @ Version: 1.0
+# @ Revision date: Jun/19/2018
+# @ Copyright (c) 2016-2018 School of Electrical Engineering, Shandong University, China
 ########################################################################################
 """
 

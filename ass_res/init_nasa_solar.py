@@ -7,9 +7,9 @@ Created on Thu Jun 08 21:53:47 2017
 # @ Function: The class of NASA solar irradiation. 
 # 	Importing, preprocessing, and basic operation of solar data.
 # @ Author: Yongji Cao, Hengxu Zhang
-# @ Version: 1.1.2
-# @ Revision date: Nov./05/2017
-# @ Copyright (c) 2016-2017 School of Electrical Engineering, Shandong University, China
+# @ Version: 1.0
+# @ Revision date: Jun/19/2018
+# @ Copyright (c) 2016-2018 School of Electrical Engineering, Shandong University, China
 ########################################################################################
 """
 
@@ -20,7 +20,7 @@ from pyhdf.SD import SD
 
 class SolarData(object):
 	'''NASA solar irradiation data class'''
-	version = '1.1.2'
+	version = '1.0'
 	month_name = ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
 		'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')
 	leap_year = {'Jan': (31, 101, 131, True), 'Feb': (29, 201, 229, True), 'Mar': (31, 301, 331, True), 
@@ -56,7 +56,9 @@ class SolarData(object):
 		self.end_year = iend_year
 		self.dict_solar = {}
 		self.dict_solar_cf = {}
+		self.dict_wind_cf0 = {}
 		self.dict_temperature = {}
+		self.alpha = 1
 
 	def cimport_data(self, idata_name=('SWGNT',)):
 		'''Import ten-year dsolar irradiation ata. 
@@ -334,19 +336,60 @@ class SolarData(object):
 		'''
 		return self.c2style_10year(imode)[isiteth]
 
+	def ccal_corrcoef(self, irelmean=0.1183):
+		'''Calculate the correction factors.
+		Args:
+			irelmean: the in-situ measured capacity factors, 
+				the annual average capacity factor of the study region.
+		Returns:
+			alpha: the calculated correction factor for the study region.
+		'''
+		dict_data_10year = self.c2style_10year(True)
+		ur = irelmean
+		N = len(self.site_indext)
+		us = 0
+		for each_siteth in range(1, N+1, 1):
+			us += np.mean(dict_data_10year[each_siteth], axis=1)
+		corfactors = ur * N * 1.0 / us
+		self.alpha = corfactors[0,]
+		return alpha[0,]
+
+	def ccorrect_cf(self):
+		'''Correct the simulated capacity factors in the study region.
+		Args:
+		Returns:
+			dict_solar_cf0: the uncorrected capacity factors
+			dict_solar_cf: the corrected capacity factors
+		'''
+		year_index = range(self.start_year, self.end_year + 1)
+		site_num = len(self.site_index)
+		for each_siteth in range(1, site_num + 1):
+			self.dict_solar_cf0[each_siteth]={}
+			for each_year in year_index:
+				self.dict_solar_cf0[each_siteth][each_year]={}
+				for each_month in SolarData.month_name:
+					self.dict_solar_cf0[each_siteth][each_year][each_month] = self.dict_solar_cf[each_siteth][each_year][each_month]
+					self.dict_solar_cf[each_siteth][each_year][each_month] = self.dict_solar_cf[each_siteth][each_year][each_month] * self.alpha
+		return self.dict_solar_cf0, self.dict_solar_cf
+
+
 
 if __name__ == '__main__':
 	'''Examples.'''
 	file_name = 'sd_solar_data'
+	file_namet = 'sd_temp_data'
 	irrad_site_index = [(-3, 6), (-9, 7)]
+	irrad_site_indext = [(252, 443), (252, 452)]
 	start_year = 2006
 	end_year = 2006
 
-	solar_data = SolarData(file_name, irrad_site_index, start_year, end_year)
+	solar_data = SolarData(file_name, file_namet, irrad_site_index, irrad_site_indext, start_year, end_year)
 	solar_irrad_data = solar_data.cimport_data()
 	solar_capacity_factor = solar_data.csolar2cf_model1()
 	# solar_temperature_data = solar_data.cimport_datat()
 	# solar_capacity_factor = solar_data.csolar2cf_model2()
+	PVcorrcoef = solar_data.ccal_corrcoef(0.1183)
+	(solar_capacity_factor0, solar_capacity_factor) = solar_data.ccorrect_cf()
 	solar_cf_1monthstl = solar_data.c2style_1month()
 	solar_cf_1yearstl = solar_data.c2style_1year()
 	solar_cf_10yearstl = solar_data.c2style_10year()

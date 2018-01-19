@@ -7,9 +7,9 @@ Created on Fri Jun 09 18:54:30 2017
 # @ Function: Perform single-site assessment.
 # 	Assess the local synergy effects.
 # @ Author: Yongji Cao, Hengxu Zhang
-# @ Version: 0.1.2
-# @ Revision date: Jun/16/2017
-# @ Copyright (c) 2016-2017 School of Electrical Engineering, Shandong University, China
+# @ Version: 1.0
+# @ Revision date: Jun/19/2018
+# @ Copyright (c) 2016-2018 School of Electrical Engineering, Shandong University, China
 ########################################################################################
 """
 
@@ -18,6 +18,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy import stats
 from mpl_toolkits.axes_grid1 import host_subplot
+from sklearn import preprocessing
 
 import init_nasa_wind as mwind
 import init_nasa_solar as msolar
@@ -228,29 +229,34 @@ def cass_rampopt(iwind_data, isolar_data, ioptimal_ratio, isiteth_plotted=3, plo
 	return hfc_ramp_rate
 
 
-def cass_single_site(iwind_data, isolar_data, isiteth=3):
+def cass_single_site(iwind_data, isolar_data, isiteth=3, ikw=0.60, ikf=0.98, ikc=-0.5, igama=0.1):
 	'''Assess local synergy of selected sites.
 		Output statistical indices.
 	Args:
 		iwind_data: the source wind data.
 		isolar_data: the source solar data.
 		isiteth: the serial number of selected site.
+		ikw: the profit coefficient of electricity selling of wind energy.
+		ikf: the profit coefficient of electricity selling of solar energy.
+		ikc: the negative cost coefficient of ramp reserve.
+		igama: the weight factor.
 	Returns:
 		matching_coef_opt: optimal ratio of wind and solar.
 		hfc_mean_yearly: means of optimal wind and solar configuration in year scale.
 		hfc_mean_hourly: means of optimal wind and solar configuration in hour scale.
 		hfc_std_hourly: std of optimal wind and solar configuration in hour scale.
-		hfc_varcoef_hourly: variable coefficient of optimal wind and solar configuration in hour scale.
-		hfc_half_prob: half power probability
+		hfc_varcoef_hourly: variation coefficient of optimal wind and solar configuration in hour scale.
+		hfc_half_prob: half power probability.
 		hfc_ramp_rate: the ramp rate of optimal wind and solar configuration.
-		fc_ramp_mean: mean of ramp rate.
-		fc_ramp_std: std of ramp rate.
-		fc_ramp_max: max of ramp rate. 
-		fc_ramp_min: min of ramp rate.
-		fc_ramp_upper: upper value of 95% confidence interval ramp rate.
-		fc_ramp_lower: lower value of 95% confidence interval ramp rate.
-		improving_coef: the improving coefficient
-		local_synergy_coef: the local synergy coefficient
+		hfc_ramp_mean: mean of ramp rate.
+		hfc_ramp_std: std of ramp rate.
+		hfc_ramp_max: max of ramp rate. 
+		hfc_ramp_min: min of ramp rate.
+		hfc_ramp_upper: upper value of 95% confidence interval ramp rate.
+		hfc_ramp_lower: lower value of 95% confidence interval ramp rate.
+		improving_coef: the improving coefficient.
+		local_synergy_coef: the local synergy coefficient.
+		hfc_comp_profits: the comprehensive profit coefficient.
 	'''
 	matching_coef_opt = cass_configh(iwind_data, isolar_data, isiteth, False)
 	hfc_ramp_rate = cass_rampopt(iwind_data, isolar_data, matching_coef_opt, 3, False)
@@ -277,18 +283,42 @@ def cass_single_site(iwind_data, isolar_data, isiteth=3):
 	sfc_varcoef_hourly = sfc_mean_hourly * 1.0 / sfc_std_hourly
 	improving_coef = 1 - hfc_varcoef_hourly / (matching_coef_opt * wfc_varcoef_hourly + \
 		(1 - matching_coef_opt)* sfc_varcoef_hourly)
+	norwfc_10years = preprocessing.scale(wfc_10years[0, :])
+	norsfc_10years = preprocessing.scale(sfc_10years[0, :])
 	local_synergy_coef = 1 - 0.5 * stats.pearsonr(wfc_10years[0, :], sfc_10years[0, :])[0]
+	Kp = ikw * matching_coef_opt + ikf * (1-matching_coef_opt)
+	hfc_comp_profits = 1000.0 * (igama * Kp * hfc_mean_hourly + (1 - igama) * ikc * np.mean(hfc_ramp_rate))
 	return matching_coef_opt, hfc_mean_yearly, hfc_mean_hourly, hfc_std_hourly, hfc_varcoef_hourly, hfc_half_prob, hfc_ramp_rate, \
-	hfc_ramp_mean, hfc_ramp_std, hfc_ramp_max, hfc_ramp_min, hfc_ramp_upper, hfc_ramp_lower, improving_coef, local_synergy_coef
+	hfc_ramp_mean, hfc_ramp_std, hfc_ramp_max, hfc_ramp_min, hfc_ramp_upper, hfc_ramp_lower, improving_coef, local_synergy_coef, hfc_comp_profits
 
 
-def cass_attr_constr(iwind_data, isolar_data, imode=0):
+def cass_attr_constr(iwind_data, isolar_data, imode=0, ikw=0.60, ikf=0.98, ikc=-0.5, igama=0.1):
 	'''Construct new attirbutes.
 		Output statistical indices 
 	Args:
 		iwind_data: the source wind data.
 		isolar_data: the source solar data.
-		imode: 0, 1, 2, 3. means in year scale variable coefficient in hour scale, matching coefficient, local synergy coefiicient
+		imode: 0~15
+				0 - optimal ratio of wind and solar.
+				1 - means of optimal wind and solar configuration in year scale.
+				2 - means of optimal wind and solar configuration in hour scale.
+				3 - std of optimal wind and solar configuration in hour scale.
+				4 - variation coefficient of optimal wind and solar configuration in hour scale.
+				5 - half power probability.
+				6 - the ramp rate of optimal wind and solar configuration.
+				7 - mean of ramp rate.
+				8 - std of ramp rate.
+				9 - max of ramp rate.
+				10 - min of ramp rate.
+				11 - upper value of 95% confidence interval ramp rate.
+				12 - lower value of 95% confidence interval ramp rate.
+				13 - the improving coefficient.
+				14 - the local synergy coefficient.
+				15 - the comprehensive profit coefficient.
+		ikw: the profit coefficient of electricity selling of wind energy.
+		ikf: the profit coefficient of electricity selling of solar energy.
+		ikc: the negative cost coefficient of ramp reserve.
+		igama: the weight factor.
 	Returns: 
 		the constructed attributes.
 	'''
@@ -296,47 +326,49 @@ def cass_attr_constr(iwind_data, isolar_data, imode=0):
 	sf_10yearstl = isolar_data.c2style_10year(True)
 	hf_10yearstl = {}
 	site_num = len(iwind_data.site_index)
-	year_index = range(iwind_data.start_year, iwind_data.end_year + 1)
-	year_num = len(year_index)
-	matching_coef_opt = np.zeros((1, site_num), np.float32)
-	interval = np.arange(0, 1.02, 0.02)
+	# year_index = range(iwind_data.start_year, iwind_data.end_year + 1)
+	# year_num = len(year_index)
+	# matching_coef_opt = np.zeros((1, site_num), np.float32)
+	# interval = np.arange(0, 1.02, 0.02)
+	analy_results = np.zeros((1, site_num), np.float32)
 	for each_siteth in range(1, site_num + 1, 1):
-		hfcvc_list=[]
-		for each_ratio in interval:
-			hf_10yearstl_tmp = wf_10yearstl[each_siteth] * each_ratio + sf_10yearstl[each_siteth] * (1 - each_ratio)
-			hfc_variable_coef = np.std(hf_10yearstl_tmp, axis=1) / np.mean(hf_10yearstl_tmp, axis=1)
-			hfcvc_list.append(hfc_variable_coef)
-		matching_coef_opt[0, each_siteth - 1] = interval[np.argmin(hfcvc_list)]
-		hf_10yearstl[each_siteth] = \
-		wf_10yearstl[each_siteth] * matching_coef_opt[0,each_siteth-1] + sf_10yearstl[each_siteth] * (1-matching_coef_opt[0,each_siteth-1])
-	if imode == 0:
-		hfc_mean_yearly = np.zeros((1, site_num), np.float32)
-		for each_siteth in range(1, site_num + 1, 1):
-			hfc_mean_yearly[0, each_siteth-1] = \
-			np.sum(hf_10yearstl[each_siteth], axis=1) * 1.0 / year_num
-		return hfc_mean_yearly
-	elif imode == 1:
-		hfc_varcoef_hourly = np.zeros((1, site_num), np.float32)
-		for each_siteth in range(1, site_num + 1, 1):
-			hfc_varcoef_hourly[0, each_siteth-1] = \
-			np.std(hf_10yearstl[each_siteth], axis=1) * 1.0 / np.mean(hf_10yearstl[each_siteth], axis=1)
-		return hfc_varcoef_hourly
-	elif imode == 2:
-		improving_coef = np.zeros((1, site_num), np.float32)
-		wfc_varcoef_hourly = masw.cass_attr_constr(iwind_data, 2)
-		sfc_varcoef_hourly = masw.cass_attr_constr(isolar_data, 2)
-		for each_siteth in range(1, site_num + 1, 1):
-			improving_coef[0, each_siteth-1] = \
-			1 - ((np.std(hf_10yearstl[each_siteth], axis=1) * 1.0 / np.mean(hf_10yearstl[each_siteth], axis=1))) / \
-			(wfc_varcoef_hourly[0, each_siteth-1] * matching_coef_opt[0, each_siteth - 1] + 
-				sfc_varcoef_hourly[0, each_siteth-1] * (1 - matching_coef_opt[0, each_siteth - 1]))
-		return improving_coef
-	else:
-		local_synergy_coef = np.zeros((1, site_num), np.float32)
-		for each_siteth in range(1, site_num + 1, 1):
-			local_synergy_coef[0, each_siteth-1] = \
-			0.5 - 0.5 * stats.pearsonr(wf_10yearstl[each_siteth][0, :], sf_10yearstl[each_siteth][0, :])[0]
-		return local_synergy_coef
+		(oindices0, oindices1, oindices2, oindices3, oindices4, oindices5, oindices6, oindices7, \
+			oindices8, oindices9, oindices10, oindices11, oindices12, oindices13, oindices14, oindices15) =\ 
+			cass_single_site(iwind_data, isolar_data, each_siteth, ikw, ikf, ikc, igama)
+		if imode == 0:
+			analy_results[0, each_siteth] = oidices0
+		elif imode == 1:
+			analy_results[0, each_siteth] = oidices1
+		elif imode == 2:
+			analy_results[0, each_siteth] = oidices2
+		elif imode == 3:
+			analy_results[0, each_siteth] = oidices3
+		elif imode == 4:
+			analy_results[0, each_siteth] = oidices4
+		elif imode == 5:
+			analy_results[0, each_siteth] = oidices5
+		elif imode == 6:
+			analy_results[0, each_siteth] = oidices6
+		elif imode == 7
+			analy_results[0, each_siteth] = oidices7
+		elif imode == 8:
+			analy_results[0, each_siteth] = oidices8
+		elif imode == 9:
+			analy_results[0, each_siteth] = oidices9
+		elif imode == 10:
+			analy_results[0, each_siteth] = oidices10
+		elif imode == 11:
+			analy_results[0, each_siteth] = oidices11
+		elif imode == 12:
+			analy_results[0, each_siteth] = oidices12
+		elif imode == 13:
+			analy_results[0, each_siteth] = oidices13
+		elif imode == 14:
+			analy_results[0, each_siteth] = oidices14
+		# elif imode == 15:
+		else:
+			analy_results[0, each_siteth] = oidices15
+	return analy_results
 
 
 def cass_output_prob(iwind_data, isolar_data, isiteth=3):

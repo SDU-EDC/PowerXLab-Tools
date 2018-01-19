@@ -7,9 +7,9 @@ Created on Fri Jun 09 20:40:31 2017
 # @ Function: Draw geographical graphs.
 # 	Basic graphs, contour graphs, and clustering graphs.
 # @ Author: Yongji Cao, Hengxu Zhang
-# @ Version: 0.1.2
-# @ Revision date: Jun/17/2017
-# @ Copyright (c) 2016-2017 School of Electrical Engineering, Shandong University, China
+# @ Version: 1.0
+# @ Revision date: Jun/19/2018
+# @ Copyright (c) 2016-2018 School of Electrical Engineering, Shandong University, China
 ########################################################################################
 """
 

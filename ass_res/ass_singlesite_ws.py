@@ -7,9 +7,9 @@ Created on Fri Jun 09 18:51:22 2017
 # @ Function: Perform single-site assessment.
 # 	Assess the variation and reserves of wind and solar resources.
 # @ Author: Yongji Cao, Hengxu Zhang
-# @ Version: 0.1.2
-# @ Revision date: Jun/16/2017
-# @ Copyright (c) 2016-2017 School of Electrical Engineering, Shandong University, China
+# @ Version: 1.10
+# @ Revision date: Jun/19/2018
+# @ Copyright (c) 2016-2018 School of Electrical Engineering, Shandong University, China
 ########################################################################################
 """
 

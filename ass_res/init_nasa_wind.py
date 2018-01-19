@@ -7,9 +7,9 @@ Created on Thu Jun 08 10:54:23 2017
 # @ Function: The class of NASA wind speed.
 # 	Importing, preprocessing, and basic operation of solar data.
 # @ Author: Yongji Cao, Hengxu Zhang
-# @ Version: 0.1.2
-# @ Revision date: Jun/16/2017
-# @ Copyright (c) 2016-2017 School of Electrical Engineering, Shandong University, China
+# @ Version: 1.0
+# @ Revision date: Jun/19/2018
+# @ Copyright (c) 2016-2018 School of Electrical Engineering, Shandong University, China
 ########################################################################################
 """
 
@@ -20,7 +20,7 @@ from pyhdf.SD import SD
 
 class WindData(object):
 	'''NASA wind speed data class'''
-	version = '0.1.1'
+	version = '1.0'
 	month_name = ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
 		'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')
 	leap_year = {'Jan': (31, 101, 131, True), 'Feb': (29, 201, 229, True), 'Mar': (31, 301, 331, True), 
@@ -54,6 +54,8 @@ class WindData(object):
 		self.dict_ref_wind = {}
 		self.dict_hw_wind = {}
 		self.dict_wind_cf = {}
+		self.dict_wind_cf0 = {}
+		self.alpha = 1
 
 	def cuv2speed(self, u, v):
 		'''Converter u and v to the wind speed. 
@@ -304,6 +306,45 @@ class WindData(object):
 		'''
 		return self.c2style_10year(imode)[isiteth]
 
+	def ccal_corrcoef(self, irelmean=0.2100):
+		'''Calculate the correction factors.
+		Args:
+			irelmean: the in-situ measured capacity factors, 
+				the annual average capacity factor of the study region.
+		Returns:
+			alpha: the calculated correction factor for the study region.
+		'''
+		dict_data_10year = self.cdata2AllYearStyle(True)
+		ur = irelmean
+		N = len(self.ipoint_idex)
+		us = 0
+		for each_siteth in range(1, N+1, 1):
+			us += np.mean(dict_data_10year[each_siteth], axis=1)
+			corfactors = ur * N * 1.0 / us
+			self.alpha = corfactors[0,]
+		return self.alpha
+
+	def ccorrect_cf(self):
+		'''Correct the simulated capacity factors in the study region.
+		Args:
+		Returns:
+			dict_wind_cf0: the uncorrected capacity factors
+			dict_wind_cf: the corrected capacity factors
+		'''
+		year_index = range(self.start_year, self.end_year + 1)
+		site_num = len(self.site_index)
+		for each_siteth in range(1, site_num + 1):
+			self.dict_wind_cf0[each_siteth]={}
+			for each_year in year_index:
+				self.dict_wind_cf0[each_siteth][each_year]={}
+				for each_month in WindData.month_name:
+					self.dict_wind_cf0[each_siteth][each_year][each_month] = self.dict_wind_cf[each_siteth][each_year][each_month]
+					self.dict_wind_cf[each_siteth][each_year][each_month] = self.dict_wind_cf[each_siteth][each_year][each_month] * self.alpha
+		return dict_wind_cf0, dict_wind_cf
+
+	def
+
+
 
 if __name__ == '__main__':
 	'''Examples.'''
@@ -316,6 +357,8 @@ if __name__ == '__main__':
 	wind_speed_ref = wind_data.cimport_data()
 	wind_speed_hw = wind_data.cref2hw()
 	wind_capacity_factor = wind_data.cwind2cf()
+	WTGcorrcoef = wind_data.ccal_corrcoef(0.2100)
+	(wind_capacity_factor0, wind_capacity_factor) = wind_data.ccorrect_cf()
 	wind_cf_1monthstl = wind_data.c2style_1month()
 	wind_cf_1yearstl = wind_data.c2style_1year()
 	wind_cf_10yearstl = wind_data.c2style_10year()
