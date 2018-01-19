@@ -8,7 +8,7 @@ Created on Fri Jun 09 18:54:30 2017
 # 	Assess the local synergy effects.
 # @ Author: Yongji Cao, Hengxu Zhang
 # @ Version: 1.0
-# @ Revision date: Jun/19/2018
+# @ Revision date: Jan/19/2018
 # @ Copyright (c) 2016-2018 School of Electrical Engineering, Shandong University, China
 ########################################################################################
 """

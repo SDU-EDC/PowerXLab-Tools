@@ -19,7 +19,7 @@ Created on Sun Jun 11 15:42:16 2017
 # 	Geographical data of GADM database in shapefile file format (Data)
 # 	In-situ measured data for correction (Data)
 # @ Version: 1.0
-# @ Revision date: Jun/19/2018
+# @ Revision date: Jan/19/2018
 # @ Copyright (c) 2016-2018 School of Electrical Engineering, Shandong University, China
 ########################################################################################
 """

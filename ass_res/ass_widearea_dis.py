@@ -9,7 +9,7 @@ Created on Sat Jun 10 09:31:51 2017
 # 	and the spatial effects of one site.
 # @ Author: Yongji Cao, Hengxu Zhang
 # @ Version: 1.0
-# @ Revision date: Jun/19/2018
+# @ Revision date: Jan/19/2018
 # @ Copyright (c) 2016-2018 School of Electrical Engineering, Shandong University, China
 ########################################################################################
 """

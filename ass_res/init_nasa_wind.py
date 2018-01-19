@@ -8,7 +8,7 @@ Created on Thu Jun 08 10:54:23 2017
 # 	Importing, preprocessing, and basic operation of solar data.
 # @ Author: Yongji Cao, Hengxu Zhang
 # @ Version: 1.0
-# @ Revision date: Jun/19/2018
+# @ Revision date: Jan/19/2018
 # @ Copyright (c) 2016-2018 School of Electrical Engineering, Shandong University, China
 ########################################################################################
 """
