@@ -17,13 +17,13 @@ An integrated power system application tool developed by School of Electrical En
 		Geographical data of GADM database in shapefile file format (Data)
 		In-situ measured data for correction (Data)
 	- Usage
-### RSPT V1.0
-	Regional Synergetic Planning Toolbox for renewable energy sources
+### SRPT V1.0
+	Synergetic Regional Planning Toolbox for renewable energy sources
 	A software package developed for optimal planning of regional wind-solar synergetic energy systems.
 	- Requirements
 	- Usage
-### RCCT V1.0
-	Regional Coordinated Control Toolbox for renewable energy systems
+### CRCT V1.0
+	Coordinated Regional Control Toolbox for renewable energy systems
 	A software package developed for frequency control of renewable energy systems.
 	- Requirements
 	- Usage
