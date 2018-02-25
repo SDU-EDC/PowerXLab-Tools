@@ -15,8 +15,8 @@ Created on Sun Jun 11 15:42:16 2017
 # 	scipy (Python package)
 # 	pyhdf (Python package)
 # 	sklearn (Python package)
-# 	Ten-year wind speed, solar irradiation and ambient temperature of NASA database (Data)
-# 	Geographical data of GADM database in shapefile file format (Data)
+# 	Ten-year wind speed, solar irradiation and ambient temperature data (Data)
+# 	Geographical data in shapefile file format (Data)
 # 	In-situ measured data for correction (Data)
 # @ Version: 1.0
 # @ Revision date: Jan/19/2018
