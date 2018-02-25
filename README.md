@@ -13,8 +13,8 @@ An integrated power system application tool developed by School of Electrical En
 		scipy (Python package)
 		pyhdf (Python package)
 		sklearn (Python package)
-		Ten-year wind speed, solar irradiation and ambient temperature of NASA database (Data)
-		Geographical data of GADM database in shapefile file format (Data)
+		Ten-year wind speed, solar irradiation and ambient temperature data (Data)
+		Geographical data in shapefile file format (Data)
 		In-situ measured data for correction (Data)
 	- Usage
 ### SRPT V1.0
