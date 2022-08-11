@@ -3,7 +3,7 @@ Simulation and Computing Toolkit for Power System with High Peneration of Renewa
 developed by School of Electrical Engineering, Shandong University, China
 ## Introduction
 ### QSAT V1.1
-	Quantitative Synergy Assessment Toolbox for Renewable Energy Sources
+	Quantitative Synergy Assessment Toolkit for Renewable Energy Sources
 	A software package developed in Python for assessment and visualization of the spatiotemporal characteristics of 
 	regional renewable energy sources (wind and solar energy) to support preliminary regional planning.
 	- Requirements
@@ -19,7 +19,7 @@ developed by School of Electrical Engineering, Shandong University, China
 		IN-SITU MEASURED DATA for CORRECTION (Data)
 	- Usage
 ### AFAC V2.1
-	Auxiliary Decision-Making Toolbox for Power System Frequency Analysis and Control   
+	Auxiliary Decision-Making Toolkit for Power System Frequency Analysis and Control   
 	A software package developed in Python and Fortran for frequency analysis and control of
 	the power system with high peneration of renewable energy sources.
 	- Requirements
