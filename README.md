@@ -1,6 +1,6 @@
 # PowerXLab-Tools
-Simulation and Computing Toolkit for Power System with high peneration of renewable energy sources
-developed by School of Electrical Engineering, Shandong University, China.
+Simulation and Computing Toolkit for Power System with High Peneration of Renewable Energy Sources
+developed by School of Electrical Engineering, Shandong University, China
 ## Introduction
 ### QSAT V1.1
 	Quantitative Synergy Assessment Toolbox for Renewable Energy Sources
