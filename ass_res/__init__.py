@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 """
-Created on Sun Jun 11 15:42:16 2017
+Created on Sun Jun 11 15:42:16 2017 
 ########################################################################################
 # @ File name: __init_.py
 # @ Function: Assess and visualize the spatiotemporal characteristics of regional wind 
