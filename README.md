@@ -19,9 +19,9 @@ developed by School of Electrical Engineering, Shandong University, China
 		IN-SITU MEASURED DATA for CORRECTION (Data)
 	- Usage
 ### AFAC V2.1
-	Auxiliary Decision-Making Toolkit for Power System Frequency Analysis and Control   
-	A software toolbox developed in Python and Fortran for frequency analysis and control of
-	the power system with high peneration of renewable energy sources.
+	Auxiliary Decision-Making Toolkit for Power System Frequency stability Analysis and Control   
+	A software toolbox developed in Python and Fortran for frequency stability analysis and control of
+	the power system with high penetration of renewable energy sources.
 	- Requirements
 		PYTHON 2.7 (or higher)
 		PSS/E 33.1 (or higher) or STEPS (https://github.com/changgang/steps)
