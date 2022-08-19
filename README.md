@@ -4,7 +4,7 @@ developed by School of Electrical Engineering, Shandong University, China
 ## Introduction
 ### QSAT V1.1
 	Quantitative Synergy Assessment Toolkit for Renewable Energy Sources
-	A software package developed in Python for assessment and visualization of the spatiotemporal characteristics of 
+	A software toolbox developed in Python for assessment and visualization of the spatiotemporal characteristics of 
 	regional renewable energy sources (wind and solar energy) to support preliminary regional planning.
 	- Requirements
 		PYTHON 2.7 (or higher)
@@ -20,7 +20,7 @@ developed by School of Electrical Engineering, Shandong University, China
 	- Usage
 ### AFAC V2.1
 	Auxiliary Decision-Making Toolkit for Power System Frequency Analysis and Control   
-	A software package developed in Python and Fortran for frequency analysis and control of
+	A software toolbox developed in Python and Fortran for frequency analysis and control of
 	the power system with high peneration of renewable energy sources.
 	- Requirements
 		PYTHON 2.7 (or higher)
