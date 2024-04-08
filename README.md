@@ -30,6 +30,27 @@ Maintainer: Yongji Cao yongji@sdu.edu.cn from Shandong University, China.
 		SKLEARN (PYTHON package)
 		POWER FLOW RAW DATA FILES (PSS/E Input Data Files)
 		DYNAMICS DATA FILES (PSS/E Input Data Files) 
+  ### DLPF V1.1
+	Deep Learning-Based Toolbox for Power Flow Analysis of Power System   
+	A software toolbox developed in Python for optimal search direction and high-convergence and 
+        high-efficiency power flow analysis.
+	- Requirements
+		PYTHON 3.9 (or higher)
+	        TKINTER (PYTHON package)
+	        PANDAS (PYTHON package)
+		TIME (PYTHON package)
+		SUBPROCESS (PYTHON package)
+		SKLEARN (PYTHON package)
+		JOBLIB (PYTHON package)
+		NUMPY (PYTHON package)
+		PYPOWER (PYTHON package)
+		TQDM (PYTHON package)
+		MATPLOTLIB (PYTHON package)
+		PYPOWER (PYTHON package)
+		TQDM (PYTHON package)
+		TRAIN-LABEL (Data)
+		TEST-LABEL (Data)
+
 ## Reference
 ## License
 [GNU General Public License v3.0](LICENSE)
