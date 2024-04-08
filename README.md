@@ -31,9 +31,9 @@ Maintainer: Yongji Cao yongji@sdu.edu.cn from Shandong University, China.
 		POWER FLOW RAW DATA FILES (PSS/E Input Data Files)
 		DYNAMICS DATA FILES (PSS/E Input Data Files) 
   ### DLPF V1.1
-	Deep Learning-Based Toolbox for Power Flow Analysis of Power System   
-	A software toolbox developed in Python for optimal search direction and high-convergence and 
-        high-efficiency power flow analysis.
+  	Deep Learning-Based Toolbox for Power Flow Analysis   
+	A software toolbox developed in Python for optimal search direction and high-convergence and
+	high-efficiency power flow analysis.
 	- Requirements
 		PYTHON 3.9 (or higher)
 	        TKINTER (PYTHON package)
