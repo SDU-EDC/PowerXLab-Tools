@@ -17,7 +17,6 @@ Maintainer: Yongji Cao yongji@sdu.edu.cn from Shandong University, China.
 		METEOROLOGICAL DATA (Data)
 		GEOGRAPHICAL DATA (Data)
 		IN-SITU MEASURED DATA for CORRECTION (Data)
-	- Usage
 ### AFAC V2.3
 	Auxiliary Decision-Making Toolkit for Power System Frequency stability Analysis and Control   
 	A software toolbox developed in Python and Fortran for frequency stability analysis and control of
@@ -31,7 +30,6 @@ Maintainer: Yongji Cao yongji@sdu.edu.cn from Shandong University, China.
 		SKLEARN (PYTHON package)
 		POWER FLOW RAW DATA FILES (PSS/E Input Data Files)
 		DYNAMICS DATA FILES (PSS/E Input Data Files) 
-	- Usage
 ## Reference
 ## License
 [GNU General Public License v3.0](LICENSE)
