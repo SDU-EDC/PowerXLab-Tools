@@ -1,5 +1,5 @@
 # PowerXLab-Tools
-## Simulation and Computing Toolkit for Power System with High Peneration of Renewable Energy Sources
+## Simulation and Computing Toolkit for Power System with High Penetration of Renewable Energy Sources
 Maintainer: Yongji Cao yongji@sdu.edu.cn from Shandong University, China.
 ## Introduction
 ### QSAT V1.1
