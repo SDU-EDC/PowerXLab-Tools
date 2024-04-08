@@ -2,7 +2,7 @@
 ## Simulation and Computing Toolkit for Power System with High Penetration of Renewable Energy Sources
 Maintainer: Yongji Cao yongji@sdu.edu.cn from Shandong University, China.
 ## Introduction
-### QSAT V1.1
+### QSAT V2.1
 	Quantitative Synergy Assessment Toolkit for Renewable Energy Sources
 	A software toolbox developed in Python for assessment and visualization of the spatiotemporal characteristics of 
 	regional renewable energy sources (wind and solar energy) to support preliminary regional planning.
@@ -18,7 +18,7 @@ Maintainer: Yongji Cao yongji@sdu.edu.cn from Shandong University, China.
 		GEOGRAPHICAL DATA (Data)
 		IN-SITU MEASURED DATA for CORRECTION (Data)
 	- Usage
-### AFAC V2.1
+### AFAC V2.3
 	Auxiliary Decision-Making Toolkit for Power System Frequency stability Analysis and Control   
 	A software toolbox developed in Python and Fortran for frequency stability analysis and control of
 	the power system with high penetration of renewable energy sources.
